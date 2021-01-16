@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderLine;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user/create');
     }
 
     /**
@@ -38,7 +39,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->get('name');
+        $user->surname = $request->get('surname');
+        $user->email = $request->get('email');
+        $user->address = $request->get('address');
+        $user->rol = $request->get('rol');
+        $user->type_user = $request->get('type_user');
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
+        return redirect()->route('user.index');
     }
 
     /**
@@ -49,7 +59,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::where('id', '=', $id)->get();
+        $orders = Order::where('user_id', '=', $id)->get();
+        return view('user.show', compact('user', 'orders'));
     }
 
     /**
@@ -73,7 +85,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('id', $id)->get()->first();
+        $user->name = $request->get('name');
+        $user->surname = $request->get('surname');
+        $user->email = $request->get('email');
+        $user->address = $request->get('address');
+        $user->rol = $request->get('rol');
+        $user->type_user = $request->get('type_user');
+        $user->save();
+        return redirect()->route('user.index');
     }
 
     /**

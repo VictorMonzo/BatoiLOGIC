@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\UserController;
  */
 Route::resource('order', OrderController::class);
 Route::resource('user', UserController::class);
+Route::resource('provider', ProviderController::class);
 
 //Ruta home
 Route::get('/', function () { return view('home'); });

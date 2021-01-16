@@ -4,6 +4,9 @@
     <title>@yield('titulo')</title>
     <!-- Bootstrap -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Logo -->
+    <link rel="shortcut icon" href="{{ asset('/imgs/favicon.png') }}">
 </head>
 <body>
 @include('partials.nav')

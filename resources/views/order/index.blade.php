@@ -3,11 +3,15 @@
 @section('contenido')
     <div class="page-comanda">
         <div class="container my-5">
-            <h1>Listado de comandas</h1>
-            <br>
-            <a class="btn btn-success" href="{{ route('order.create') }}">+ Añadir comanda</a>
-            <br><br>
-            <br>
+            <div class="row pt-5">
+                <h1>Listado de comandas</h1>
+            </div>
+            <div class="row py-4">
+                @if(Auth::check() && (auth()->user()->rol === 1 || auth()->user()->type_user === 1))
+                    <a class="btn btn-success" href="{{ route('order.create') }}">+ Añadir comanda</a>
+                @endif
+            </div>
+
             <div class="row">
                 @forelse($orders as $order)
                     <div class="col-4 mb-5">
@@ -33,9 +37,7 @@
                         </div>
                     </div>
                     @empty
-                    <div class="alert alert-danger" role="alert">
-                        No hay ninguna comanda
-                    </div>
+                    <div class="alert alert-danger w-100" role="alert">No hay ninguna comanda</div>
                 @endforelse
                 {{ $orders->links() }}
             </div>
