@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderLine;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderLine;
+use Illuminate\Http\Request;
+use App\Models\User;
 
-class OrderController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'ASC')->paginate(6);
-        return view('order.index', compact('orders'));
+        $users = User::orderBy('name', 'ASC')->paginate(6);
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -27,7 +27,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('order/create');
+        //
     }
 
     /**
@@ -38,13 +38,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = new Order();
-        $order->state = $request->get('state');
-        $order->address = $request->get('address');
-        $order->user_id = $request->get('user_id');
-        $order->user_type_id = $request->get('user_type_id');
-        $order->save();
-        return redirect()->route('order.index');
+        //
     }
 
     /**
@@ -55,9 +49,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::where('id', '=', $id)->get();
-        $orderLines = OrderLine::where('order_id', '=', $id)->get();
-        return view('order.show', compact('order', 'orderLines'));
+        //
     }
 
     /**
@@ -68,8 +60,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::where('id', $id)->get();
-        return view('order/edit', compact('order'));
+        $user = User::where('id', $id)->get();
+        return view('user/edit', compact('user'));
     }
 
     /**
@@ -81,11 +73,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $order = Order::where('id', $id)->get()->first();
-        $order->state = $request->get('state');
-        $order->address = $request->get('address');
-        $order->save();
-        return redirect()->route('order.index');
+        //
     }
 
     /**
@@ -96,8 +84,9 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        OrderLine::where('order_id', $id)->delete();
-        Order::findOrFail($id)->delete();
-        return redirect()->route('order.index');
+        OrderLine::where('user_id', $id)->delete();
+        Order::where('user_id', $id)->delete();
+        User::findOrFail($id)->delete();
+        return redirect()->route('user.index');
     }
 }

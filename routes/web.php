@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-// App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +15,18 @@ use App\Http\Controllers\OrderController;
 |
 */
 
+/**
+ * Rutas Controladores
+ */
 Route::resource('order', OrderController::class);
+Route::resource('user', UserController::class);
 
-//borrar seguramente esta ruta
-Route::get('/', function () {
-    return view('welcome');
-});
+//Ruta home
+Route::get('/', function () { return view('home'); });
 
+/**
+ * Rutas Autenticación
+ */
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('logout', 'Auth\LoginController@logout')->name('exit');
+Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('exit');

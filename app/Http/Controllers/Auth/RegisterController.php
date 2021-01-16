@@ -16,7 +16,7 @@ class RegisterController extends Controller
     | Register Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users as well as their
+    | This controller handles the registration of new user as well as their
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
@@ -25,11 +25,11 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
+     * Where to redirect user after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -51,7 +51,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'surname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:user'],
+            'address' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +66,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->surname = $data['surname'];
+        $user->address = $data['address'];
+        $user->rol = 0;
+        $user->type_user = 0;
+        $user->password = Hash::make($data['password']);
+        $user->save();
+
+        return redirect()->route('home');
+        /*
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'surname' => $data['surname'],
+            'address' => $data['address'],
             'password' => Hash::make($data['password']),
-        ]);
+        ]);*/
     }
 }
