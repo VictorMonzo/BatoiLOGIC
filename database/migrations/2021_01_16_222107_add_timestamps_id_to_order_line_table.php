@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIdTypeUserToOrdersTable extends Migration
+class AddTimestampsIdToOrderLineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddIdTypeUserToOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->integer('user_type_id')->unsigned();
+        Schema::table('order_lines', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 
@@ -25,7 +25,7 @@ class AddIdTypeUserToOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
+        Schema::table('order_lines', function (Blueprint $table) {
             //
         });
     }

@@ -18,4 +18,15 @@ class OrderLine extends Model
     public function products() {
         return $this->belongsTo('App\Models\Product', 'product_id');
     }
+
+    /**
+     * @param $price
+     * @param $quantity
+     * @param $discount
+     * @return float|int
+     */
+    Static function totalPrice($price, $quantity, $discount) {
+        if ($discount) return number_format(($price*$quantity)*($discount/100), 2);
+        return number_format($price*$quantity, 2);
+    }
 }

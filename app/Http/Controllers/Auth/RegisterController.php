@@ -66,6 +66,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // Guardamos la imagen
+        //$file = $request->file('photo');
+        //$nombre =  "P-".$file->getClientOriginalName();
+        //\Storage::disk('local')->put($nombre,  \File::get($file));
+
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];

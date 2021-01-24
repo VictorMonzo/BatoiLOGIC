@@ -1,14 +1,13 @@
 @extends('plantilla')
 @section('titulo', 'Listado de usuarios')
 @section('contenido')
-
     <div class="page-users">
         <div class="container my-5">
             <div class="row pt-5">
                 <h1>Listado de usuarios</h1>
             </div>
             <div class="row py-4">
-                @if(Auth::check() && (auth()->user()->rol === 1))
+                @if(Auth::check() && (auth()->user()->type_user === 3))
                     <a class="btn btn-success" href="{{ route('user.create') }}">+ Añadir usuario</a>
                 @endif
             </div>
@@ -17,11 +16,8 @@
                 @forelse($users as $user)
                     <div class="p-3 mb-3 bg-white rounded box-shadow w-100">
                         <div class="media text-muted">
-                            <a href="#" class="pt-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#000" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                                </svg>
+                            <a href="{{ route('user.show', $user->id) }}" class="pt-3">
+                                <img src="{{ $user->photo ? asset($user->photo): 'https://via.placeholder.com/300' }}" class="rounded-circle" height="100" width="100" style="object-fit: cover">
                             </a>
                             <div class="media-body pt-3 mb-0 ml-3">
                                 <div class="d-flex justify-content-between align-items-center w-100">
@@ -30,9 +26,9 @@
                                 </div>
                                 <span class="d-block">Email: {{ $user->email }}</span>
                                 <span class="d-block">Dirección: {{ $user->address }}</span>
-                                <span class="d-block">Tipo usuario: {{ $user->type_user ? 'Dealer' : 'Customer' }}</span>
+                                <span class="d-block">Tipo usuario: {{ $user->type_users->name }}</span>
 
-                                @if(Auth::check() && (auth()->user()->rol === 1))
+                                @if(Auth::check() && (auth()->user()->type_user === 3 || auth()->user()->id === $user->id))
                                     <form method="POST" action="{{  route('user.destroy', $user->id) }}" class="pt-4">
                                         @method('DELETE')
                                         @csrf
@@ -50,6 +46,5 @@
             {{ $users->links() }}
         </div>
     </div>
-
-
+</div>
 @endsection

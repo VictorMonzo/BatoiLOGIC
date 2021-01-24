@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderLine;
+use App\Models\TypeUser;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user/create');
+        $type_users = TypeUser::all();
+        return view('user/create', compact('type_users'));
     }
 
     /**
@@ -39,16 +41,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Guardamos la imagen
+        $file = $request->file('photo');
+        $nombre =  "U-".$file->getClientOriginalName();
+        \Storage::disk('local')->put($nombre,  \File::get($file));
+
         $user = new User();
         $user->name = $request->get('name');
         $user->surname = $request->get('surname');
         $user->email = $request->get('email');
         $user->address = $request->get('address');
-        $user->rol = $request->get('rol');
         $user->type_user = $request->get('type_user');
         $user->password = Hash::make($request->get('password'));
+        $user->photo = '/imgs/products-users/'.$nombre;
+        $user->remember_token = bin2hex(openssl_random_pseudo_bytes(32));
         $user->save();
-        return redirect()->route('user.index');
+
+        if ($request->get('type_register')) return redirect()->route('user.index');
+        return redirect()->route('login');
     }
 
     /**
@@ -60,7 +70,8 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('id', '=', $id)->get();
-        $orders = Order::where('user_id', '=', $id)->get();
+        if ($user[0]->type_user === 2) { $orders = Order::where('dealer_id', '=', $id)->where('state', '=', 3)->paginate(6); }
+        else { $orders = Order::where('user_id', '=', $id)->paginate(6); }
         return view('user.show', compact('user', 'orders'));
     }
 
@@ -73,7 +84,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->get();
-        return view('user/edit', compact('user'));
+        $type_users = TypeUser::all();
+        return view('user/edit', compact('user', 'type_users'));
     }
 
     /**
@@ -86,14 +98,29 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::where('id', $id)->get()->first();
+
+        if ($request->has('photo')) {
+            $photoURL = User::select('photo')->where('id', $id)->first();
+            $pos = strpos($photoURL->photo, '/U-') + 1;
+            $photoName = substr($photoURL->photo, $pos);
+            \Storage::delete($photoName);
+
+            // Guardamos la imagen
+            $file = $request->file('photo');
+            $nombre =  "U-".$file->getClientOriginalName();
+            \Storage::disk('local')->put($nombre,  \File::get($file));
+
+            $user->photo = '/imgs/products-users/'.$nombre;
+        }
+
         $user->name = $request->get('name');
         $user->surname = $request->get('surname');
         $user->email = $request->get('email');
         $user->address = $request->get('address');
-        $user->rol = $request->get('rol');
         $user->type_user = $request->get('type_user');
+        $user->password = Hash::make($request->get('password'));
         $user->save();
-        return redirect()->route('user.index');
+        return redirect()->route('user.show', $id);
     }
 
     /**
@@ -104,8 +131,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $photoURL = User::select('photo')->where('id', $id)->first();
+        $pos = strpos($photoURL->photo, '/U-') + 1;
+        $photoName = substr($photoURL->photo, $pos);
+        \Storage::delete($photoName);
+
+        $orderLines = OrderLine::select()->where('user_id', $id)->get();
+        foreach ($orderLines as $orderLine) {
+            // Borrar orders
+            Order::where('id', $orderLine->order_id)->delete();
+        }
         OrderLine::where('user_id', $id)->delete();
-        Order::where('user_id', $id)->delete();
+
         User::findOrFail($id)->delete();
         return redirect()->route('user.index');
     }

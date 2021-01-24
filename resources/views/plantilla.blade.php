@@ -2,16 +2,22 @@
 <html>
 <head>
     <title>@yield('titulo')</title>
-    <!-- Bootstrap -->
+    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <!-- Logo -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/316bc2adb6.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/imgs/favicon.png') }}">
 </head>
 <body>
 @include('partials.nav')
+
 @yield('contenido')
 
-<!-- Se podría incluir un footer -->
+@include('partials.footer')
 </body>
 </html>

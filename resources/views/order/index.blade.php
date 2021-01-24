@@ -4,28 +4,31 @@
     <div class="page-comanda">
         <div class="container my-5">
             <div class="row pt-5">
-                <h1>Listado de comandas</h1>
+                <h1> {{ auth()->user()->type_user === 2 ? 'Comandas a repartir' : 'Listado de comandas' }}</h1>
             </div>
             <div class="row py-4">
-                @if(Auth::check() && (auth()->user()->rol === 1 || auth()->user()->type_user === 1))
+                @if(Auth::check() && (auth()->user()->type_user === 3 || auth()->user()->type_user === 1))
                     <a class="btn btn-success" href="{{ route('order.create') }}">+ Añadir comanda</a>
+                @endif
+
+                @if(Auth::check() && auth()->user()->type_user === 3)
+                    <a class="btn btn-secondary ml-auto" href="{{ route('noDealer') }}">Ver comandas sin repartidor</a>
                 @endif
             </div>
 
             <div class="row">
                 @forelse($orders as $order)
-                    <div class="col-4 mb-5">
+                    <div class="col-12 col-md-6 col-lg-4 mb-5">
                         <div class="card">
                             <!--img src="..." class="card-img-top" alt="..."-->
                             <div class="card-body">
-                                <h5 class="card-title">ID {{ $order->id }}</h5>
-                                <p class="card-text">Usuario: {{ $order->users->name }}</p>
-                                <p class="card-text">Dirección: {{ $order->address }}.</p>
-                                <a href="{{ route('order.show', $order->id) }}">Ver comanda</a>
-                                <br><br>
+                                <h5 class="card-title text-success"><a href="{{ route('order.show', $order->id) }}" class="text-success"><i class="fas fa-boxes"></i> #{{ $order->id }}</a></h5>
+                                <p class="card-text m-0">{{ $order->users->name }} {{ $order->users->surname }}</p>
+                                <p class="card-text m-0">{{ $order->users->email }}</p>
+                                <p class="card-text m-0 pb-3">{{ $order->address }}.</p>
+                                <a href="{{ route('order.show', $order->id) }}">Ver pedido</a>
 
-                                @if(Auth::check() && (auth()->user()->rol === 1 || auth()->user()->type_user === 1))
-
+                                @if(Auth::check() && (auth()->user()->type_user === 3 || auth()->user()->type_user === 2))
                                     <form method="POST" action="{{  route('order.destroy', $order->id) }}">
                                         @method('DELETE')
                                         @csrf
@@ -39,8 +42,8 @@
                     @empty
                     <div class="alert alert-danger w-100" role="alert">No hay ninguna comanda</div>
                 @endforelse
-                {{ $orders->links() }}
             </div>
+            {{ $orders->links() }}
         </div>
     </div>
 @endsection

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\OrderLineController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +24,17 @@ use App\Http\Controllers\ProviderController;
 Route::resource('order', OrderController::class);
 Route::resource('user', UserController::class);
 Route::resource('provider', ProviderController::class);
+Route::resource('orderLine', OrderLineController::class);
+Route::resource('product', ProductController::class);
+
+Route::get('/order-no-dealer', [App\Http\Controllers\OrderController::class, 'noDealer'])->name('noDealer');
 
 //Ruta home
 Route::get('/', function () { return view('home'); });
+
+//Ruta para guardar imágenes
+//Route::get('formulario', 'StorageController@index');
+//Route::post('storage/create', 'StorageController@save');
 
 /**
  * Rutas Autenticación

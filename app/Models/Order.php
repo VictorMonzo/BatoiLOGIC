@@ -14,6 +14,14 @@ class Order extends Model
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
+    public function dealers() {
+        return $this->belongsTo('App\Models\User', 'dealer_id');
+    }
+
+    public function states() {
+        return $this->belongsTo('App\Models\State', 'state');
+    }
+
     // Crear relación Uno a muchos con la tabla OrderLines
     public function order_lines() {
         return $this->hasMany('App\Models\OrderLine');

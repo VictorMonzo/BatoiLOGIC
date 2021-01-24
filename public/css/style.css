@@ -1,0 +1,57 @@
+
+header,
+footer
+{
+	background-color: #1E1E1E;
+}
+
+header .logo-ph 
+{
+	margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.login-container
+{
+	min-height: 80vh;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+body > div
+{
+	padding: 0 20px;
+}
+
+.product > a {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+    
+    width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	overflow: hidden;
+}
+.product > a:hover img {
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.product img 
+{
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    object-fit: cover;
+}
+
+.carousel-caption 
+{
+	bottom: 50%!important;
+}
