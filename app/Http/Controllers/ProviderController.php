@@ -11,6 +11,15 @@ use App\Models\Product;
 class ProviderController extends Controller
 {
 
+    public function __construct()
+    {
+        // Customer
+        $this->middleware(['auth', 'typeUser:2'], ['except' => ['index', 'show']]);
+
+        // Dealer
+        $this->middleware(['auth', 'typeUser:1'], ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
         $providers = Provider::orderBy('name', 'ASC')->paginate(6);

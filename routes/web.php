@@ -28,6 +28,7 @@ Route::resource('orderLine', OrderLineController::class);
 Route::resource('product', ProductController::class);
 
 Route::get('/order-no-dealer', [App\Http\Controllers\OrderController::class, 'noDealer'])->name('noDealer');
+Route::get('/order/{id}/create', [App\Http\Controllers\OrderController::class, 'createIdProduct'])->name('createIdProduct');
 
 //Ruta home
 Route::get('/', function () { return view('home'); });

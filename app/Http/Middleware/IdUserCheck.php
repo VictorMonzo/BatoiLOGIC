@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class TypeUserCheck
+class IdUserCheck
 {
     /**
      * Handle an incoming request.
@@ -14,10 +14,10 @@ class TypeUserCheck
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $type_user)
+    public function handle(Request $request, Closure $next)
     {
         if (auth()->user()->type_user === 3) return $next($request);
-        if (auth()->user()->type_user === intval($type_user)) return $next($request);
+        if (auth()->user()->id) return $next($request);
         return redirect('/');
     }
 }

@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        // Customer
+        $this->middleware(['auth', 'typeUser:2'], ['except' => ['index', 'show']]);
+
+        // Dealer
+        $this->middleware(['auth', 'typeUser:1'], ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

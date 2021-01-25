@@ -25,7 +25,7 @@
                     </div>
                     <h3 class="font-weight-bold">{{ $product[0]->price }} €</h3>
                     @if(Auth::check() && (auth()->user()->type_user === 3 || (auth()->user()->type_user === 1)))
-                        <!--a href="{{ route('order.create', $product[0]->id) }}" class="btn btn-primary mt-4"><i class="fas fa-shopping-cart pr-2"></i>Comprar</a-->
+                        <a href="{{ route('createIdProduct', $product[0]->id) }}" class="btn btn-primary mt-4"><i class="fas fa-shopping-cart pr-2"></i>Comprar</a>
                     @endif
                     <p class="my-2 text-uppercase small text-danger">Solo quedan: {{ $product[0]->stock }} unds.</p>
                     <p class="my-2 text-uppercase small text-danger">Activo: {{ $product[0]->active ? 'Sí' : 'No' }}</p>

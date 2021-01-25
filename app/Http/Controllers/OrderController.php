@@ -15,14 +15,11 @@ class OrderController extends Controller
 
     public function __construct()
     {
-        // Si es Dealear (cliente)
-        //$this->middleware(['auth', 'typeUser:1'], ['except' => ['index', 'show', 'create', 'store']]);
+        // Customer
+        $this->middleware(['auth', 'typeUser:2'], ['except' => ['index', 'show', 'create', 'store', 'createIdProduct']]);
 
-        // Si es Customer (repartidor)
-        //$this->middleware(['auth', 'typeUser:2'], ['except' => ['index', 'show', 'edit', 'update']]);
-
-        // Si es Administrador
-        //$this->middleware(['auth', 'typeUser:3'], ['except' => ['index', 'show', 'create', 'store', 'edit', 'update']]);
+        // Dealer
+        $this->middleware(['auth', 'typeUser:1'], ['except' => ['index', 'show', 'edit', 'update']]);
     }
 
     /**
@@ -35,12 +32,14 @@ class OrderController extends Controller
         if (auth()->user()->type_user === 1) { $orders = Order::where('user_id', '=', auth()->user()->id)->where('state', '!=', 3)->orderBy('created_at', 'ASC')->paginate(6); }
         elseif (auth()->user()->type_user === 2) { $orders = Order::where('dealer_id', '=', auth()->user()->id)->where('state', '!=', 3)->orderBy('created_at', 'ASC')->paginate(6); }
         else { $orders = Order::where('dealer_id', '!=', 0)->orderBy('created_at', 'ASC')->paginate(6); }
-        return view('order.index', compact('orders'));
+        $noDealer = false;
+        return view('order.index', compact('orders', 'noDealer'));
     }
 
     public function noDealer() {
         $orders = Order::where('dealer_id', '=', 0)->orderBy('created_at', 'ASC')->paginate(6);
-        return view('order.index', compact('orders'));
+        $noDealer = true;
+        return view('order.index', compact('orders', 'noDealer'));
     }
 
     /**
@@ -52,6 +51,12 @@ class OrderController extends Controller
     {
         $products = Product::where('active', '=', 1)->where('stock', '!=', 0)->get();
         return view('order/create', compact('products'));
+    }
+
+    public function createIdProduct($idProduct) {
+        $products = Product::where('active', '=', 1)->where('stock', '!=', 0)->get();
+        $productSelectedName = Product::select('name')->where('id', '=', $idProduct)->first();
+        return view('order/create', compact('products', 'idProduct', 'productSelectedName'));
     }
 
     /**

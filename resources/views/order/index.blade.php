@@ -11,8 +11,14 @@
                     <a class="btn btn-success" href="{{ route('order.create') }}">+ Añadir comanda</a>
                 @endif
 
-                @if(Auth::check() && auth()->user()->type_user === 3)
-                    <a class="btn btn-secondary ml-auto" href="{{ route('noDealer') }}">Ver comandas sin repartidor</a>
+                @if($noDealer)
+                    @if(Auth::check() && auth()->user()->type_user === 3)
+                        <a class="btn btn-secondary ml-auto" href="{{ route('order.index') }}">Ver comandas con repartidor</a>
+                    @endif
+                @else
+                    @if(Auth::check() && auth()->user()->type_user === 3)
+                        <a class="btn btn-secondary ml-auto" href="{{ route('noDealer') }}">Ver comandas sin repartidor</a>
+                    @endif
                 @endif
             </div>
 

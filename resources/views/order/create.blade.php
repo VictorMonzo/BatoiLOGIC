@@ -24,7 +24,12 @@
                     <div class="form-group">
                         <label for="address">Seleccione un producto</label>
                         <select class="form-control" id="product_id" name="product_id" required>
-                            <option value="">Seleccione un producto</option>
+                            @if(isset($idProduct))
+                                <option value="{{ $idProduct }}">{{ $productSelectedName->name }}</option>
+                            @else
+                                <option value="">Seleccione un producto</option>
+                            @endif
+
                             @forelse($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                             @empty
