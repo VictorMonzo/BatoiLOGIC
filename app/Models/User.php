@@ -40,4 +40,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Crear relación Uno a muchos con la tabla Order
+    public function orders() {
+        return $this->hasMany('App\Models\Order');
+    }
+
+    public function type_users() {
+        return $this->belongsTo('App\Models\TypeUser', 'type_user');
+    }
+
+
 }
