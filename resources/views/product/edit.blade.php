@@ -17,19 +17,19 @@
                     @method('PUT')
                     @csrf
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-12 col-md-7">
                             <div class="form-group">
                                 <label for="name">Nombre</label>
                                 <input type="text" id="name" name="name" class="form-control" required value="{{ $product[0]->name }}">
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-md-3">
                             <div class="form-group">
                                 <label for="price">Price</label>
                                 <input type="number" id="price" name="price" class="form-control" min="0" required value="{{ $product[0]->price }}">
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6 col-md-2">
                             <div class="form-group">
                                 <label for="stock">Stock</label>
                                 <input type="number" id="stock" name="stock" class="form-control" min="1" step="0.01" required value="{{ $product[0]->stock }}">
@@ -38,13 +38,35 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-9 col-md-7">
+                            <div class="form-group">
+                                <label for="categorie">Seleccione una categoría</label>
+                                <select class="form-control" id="categorie_id" name="categorie_id" required>
+                                    <option value="{{ $product[0]->categorie_id }}">{{ $product[0]->categories->name }} (Actual)</option>
+                                    @forelse($categories as $categorie)
+                                        <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                                    @empty
+                                        <option value="">No hay categorías</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-5">
+                            <div class="form-group">
+                                <label for="discount">Descuento</label>
+                                <input type="number" id="discount" name="discount" class="form-control" min="0" step="0.01" value="{{ $product[0]->discount }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-md-8">
                             <div class="form-group">
                                 <label for="description">Descripción</label>
                                 <textarea name="description" id="description" class="form-control" rows="3" required>{{ $product[0]->description }}</textarea>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-4">
                             <div class="form-group">
                                 <label for="provider_id">Seleccione un proveedor</label>
                                 <select class="form-control" id="provider_id" name="provider_id" required>
@@ -70,6 +92,7 @@
                             </div>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>

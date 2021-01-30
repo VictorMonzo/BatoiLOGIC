@@ -26,4 +26,5 @@ class Order extends Model
     public function order_lines() {
         return $this->hasMany('App\Models\OrderLine');
     }
+
 }

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class OrderLineController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'], ['except' => []]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -58,8 +63,12 @@ class OrderLineController extends Controller
      */
     public function edit($id)
     {
-        $orderLine = OrderLine::where('id', $id)->get();
-        return view('orderLine/edit', compact('orderLine'));
+        $user_id = OrderLine::select('user_id')->find($id);
+        if (auth()->user()->id === $user_id->user_id || auth()->user()->type_user === 3) {
+            $orderLine = OrderLine::where('id', $id)->get();
+            return view('orderLine/edit', compact('orderLine'));
+        }
+        return redirect()->route('home');
     }
 
     /**
@@ -71,10 +80,14 @@ class OrderLineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $orderLine = OrderLine::where('id', $id)->get()->first();
-        $orderLine->quantity = $request->get('quantity');
-        $orderLine->save();
-        return redirect()->route('order.show', $request->get('order_id'));
+        $user_id = OrderLine::select('user_id')->find($id);
+        if (auth()->user()->id === $user_id->user_id || auth()->user()->type_user === 3) {
+            $orderLine = OrderLine::where('id', $id)->get()->first();
+            $orderLine->quantity = $request->get('quantity');
+            $orderLine->save();
+            return redirect()->route('order.show', $request->get('order_id'));
+        }
+        return redirect()->route('home');
     }
 
     /**

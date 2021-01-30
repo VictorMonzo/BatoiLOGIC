@@ -52,11 +52,12 @@
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col">
-                                    <button type="submit" class="btn btn-primary">
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-block">
                                         {{ __('Login') }}
                                     </button>
-
+                                </div>
+                                <div>
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Has olvidado tu contraseña?') }}
