@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth'], ['except' => ['index', 'show']]);
+        $this->middleware(['auth'], ['except' => ['create', 'store']]);
     }
 
     /**
@@ -75,10 +75,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id', '=', $id)->get();
-        if ($user[0]->type_user === 2) { $orders = Order::where('dealer_id', '=', $id)->where('state', '=', 3)->paginate(6); }
-        else { $orders = Order::where('user_id', '=', $id)->paginate(6); }
-        return view('user.show', compact('user', 'orders'));
+        if (auth()->user()->id === intval($id) || auth()->user()->type_user === 3) {
+            $user = User::where('id', '=', $id)->get();
+            if ($user[0]->type_user === 2) {
+                $orders = Order::where('dealer_id', '=', $id)->where('state', '=', 3)->paginate(6);
+            } else {
+                $orders = Order::where('user_id', '=', $id)->paginate(6);
+            }
+            return view('user.show', compact('user', 'orders'));
+        }
+        return redirect()->route('home');
     }
 
     /**

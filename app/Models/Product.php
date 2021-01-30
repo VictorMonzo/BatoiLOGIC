@@ -18,4 +18,8 @@ class Product extends Model
     public function providers() {
         return $this->belongsTo('App\Models\Provider', 'provider_id');
     }
+
+    public function categories() {
+        return $this->belongsTo('App\Models\Categorie', 'categorie_id');
+    }
 }

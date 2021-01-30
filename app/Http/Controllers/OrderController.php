@@ -8,13 +8,15 @@ use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Order;
-
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
 
     public function __construct()
     {
+        $this->middleware(['auth'], ['except' => []]);
+
         // Customer
         $this->middleware(['auth', 'typeUser:2'], ['except' => ['index', 'show', 'create', 'store', 'createIdProduct']]);
 
@@ -29,9 +31,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->type_user === 1) { $orders = Order::where('user_id', '=', auth()->user()->id)->where('state', '!=', 3)->orderBy('created_at', 'ASC')->paginate(6); }
-        elseif (auth()->user()->type_user === 2) { $orders = Order::where('dealer_id', '=', auth()->user()->id)->where('state', '!=', 3)->orderBy('created_at', 'ASC')->paginate(6); }
-        else { $orders = Order::where('dealer_id', '!=', 0)->orderBy('created_at', 'ASC')->paginate(6); }
+        if (Auth::check()) {
+            if (auth()->user()->type_user === 1) { $orders = Order::where('user_id', '=', auth()->user()->id)->where('state', '!=', 3)->orderBy('created_at', 'ASC')->paginate(6); }
+            elseif (auth()->user()->type_user === 2) { $orders = Order::where('dealer_id', '=', auth()->user()->id)->where('state', '!=', 3)->orderBy('created_at', 'ASC')->paginate(6); }
+            else { $orders = Order::where('dealer_id', '!=', 0)->orderBy('created_at', 'ASC')->paginate(6); }
+        } else {
+            $orders = Order::paginate(6);
+        }
         $noDealer = false;
         return view('order.index', compact('orders', 'noDealer'));
     }
@@ -95,8 +101,11 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::where('id', '=', $id)->get();
-        $orderLines = OrderLine::where('order_id', '=', $id)->paginate(6);;
-        return view('order.show', compact('order', 'orderLines'));
+        if (auth()->user()->id === $order[0]->user_id || auth()->user()->id === $order[0]->dealer_id || auth()->user()->type_user === 3) {
+            $orderLines = OrderLine::where('order_id', '=', $id)->paginate(6);;
+            return view('order.show', compact('order', 'orderLines'));
+        }
+        return redirect()->route('home');
     }
 
     /**

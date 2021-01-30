@@ -15,13 +15,13 @@
                 <form action="{{ route('user.store') }}" method='POST' class="w-100" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-12 col-md-4">
                             <div class="form-group">
                                 <label for="name">Nombre: </label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12 col-md-8">
                             <div class="form-group">
                                 <label for="surname">Apellidos: </label>
                                 <input type="text" class="form-control" id="surname" name="surname" required>
@@ -29,13 +29,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="email">Email: </label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="password">Contraseña: </label>
                                 <input type="password" class="form-control" id="password" name="password" required>
@@ -70,11 +70,11 @@
                             </div>
                         </div>
                     @else
-                        <input type="hidden" id="type_user" name="type_user" value="0">
+                        <input type="hidden" id="type_user" name="type_user" value="1">
                         <input type="hidden" id="type_register" name="type_register" value="0">
                     @endif
 
-                    <button type="submit" class="btn btn-primary">Crear usuario</button>
+                    <button type="submit" class="btn btn-primary mt-4">Crear usuario</button>
                 </form>
             </div>
         </div>

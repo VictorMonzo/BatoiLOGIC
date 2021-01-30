@@ -17,15 +17,22 @@
                 <form action="{{ route('provider.update', $provider[0]->id) }}" method='POST' class="w-100">
                     @method('PUT')
                     @csrf
-                    <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ $provider[0]->name }}" required>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" value="{{ $provider[0]->email }}" required>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" id="name" class="form-control" value="{{ $provider[0]->name }}" required>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" value="{{ $provider[0]->email }}" required>
+                            </div>
+                        </div>
                     </div>
+                    
                     <button type="submit" class="btn btn-success">Actualizar comanda</button>
                 </form>
             </div>

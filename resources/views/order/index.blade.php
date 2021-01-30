@@ -4,7 +4,7 @@
     <div class="page-comanda">
         <div class="container my-5">
             <div class="row pt-5">
-                <h1> {{ auth()->user()->type_user === 2 ? 'Comandas a repartir' : 'Listado de comandas' }}</h1>
+                <h1> {{ Auth::check() && auth()->user()->type_user === 2 ? 'Comandas a repartir' : 'Listado de comandas' }}</h1>
             </div>
             <div class="row py-4">
                 @if(Auth::check() && (auth()->user()->type_user === 3 || auth()->user()->type_user === 1))
@@ -29,17 +29,17 @@
                             <!--img src="..." class="card-img-top" alt="..."-->
                             <div class="card-body">
                                 <h5 class="card-title text-success"><a href="{{ route('order.show', $order->id) }}" class="text-success"><i class="fas fa-boxes"></i> #{{ $order->id }}</a></h5>
-                                <p class="card-text m-0">{{ $order->users->name }} {{ $order->users->surname }}</p>
-                                <p class="card-text m-0">{{ $order->users->email }}</p>
-                                <p class="card-text m-0 pb-3">{{ $order->address }}.</p>
+                                <p class="card-text m-0 py-3"><b>{{ $order->users->name }} {{ $order->users->surname }}</b></p>
+                                <p class="card-text m-0"><i class="fas fa-envelope"></i> {{ $order->users->email }}</p>
+                                <p class="card-text m-0 pb-3"><i class="fas fa-map-marker-alt"></i> {{ $order->address }}.</p>
                                 <a href="{{ route('order.show', $order->id) }}">Ver pedido</a>
 
                                 @if(Auth::check() && (auth()->user()->type_user === 3 || auth()->user()->type_user === 2))
-                                    <form method="POST" action="{{  route('order.destroy', $order->id) }}">
+                                    <form method="POST" action="{{  route('order.destroy', $order->id) }}" class="mt-3">
                                         @method('DELETE')
                                         @csrf
-                                        <a href="{{ route('order.edit', $order->id) }}" class="btn btn-lg btn-primary">Editar comanda</a>
-                                        <button class="btn btn-lg btn-danger">Borrar</button>
+                                        <a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary">Editar comanda</a>
+                                        <button class="btn btn-danger">Borrar</button>
                                     </form>
                                 @endif
                             </div>
