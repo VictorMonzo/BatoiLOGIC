@@ -69,9 +69,9 @@ INSERT INTO `orders` (`id`, `state`, `address`, `created_at`, `updated_at`, `use
 /**
     orderLines
  */
-INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '2', '10', '0', '1', '1', '1', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
-INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '5', '10', '20', '2', '1', '6', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
-INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '4', '10', '0', '3', '2', '2', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
-INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '6', '10', '50', '4', '2', '5', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
-INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '3', '10', '70', '5', '3', '3', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
-INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '4', '10', '0', '6', '3', '4', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
+INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '2', '110', '0', '1', '1', '1', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
+INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '5', '120', '20', '2', '1', '6', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
+INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '4', '125', '0', '3', '2', '2', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
+INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '6', '150', '50', '4', '2', '5', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
+INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '3', '120', '70', '5', '3', '3', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
+INSERT INTO `order_lines` (`id`, `quantity`, `price`, `discount`, `order_id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES (NULL, '4', '140', '0', '6', '3', '4', '2021-01-17 19:45:27', '2021-01-17 19:45:27');
