@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum',['except' => ['store']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +31,41 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Post(
+     *      path="/api/user",
+     *      operationId="createdUser",
+     *      tags={"Users"},
+     *      summary="Crear nuevo user",
+     *      description="Returns user data",
+     *      @OA\RequestBody(
+     *         required=true,
+     *         description="Datos para crear usuario",
+     *         @OA\JsonContent(
+     *              required={"name", "surname", "email", "address", "password"},
+     *              @OA\Property(property="name", type="string", example="Victor"),
+     *              @OA\Property(property="surname", type="string", example="Monzo Mora"),
+     *              @OA\Property(property="email", type="string", example="victor.monzo.mora2@gmail.com"),
+     *              @OA\Property(property="address", type="string", example="C/ Correos"),
+     *              @OA\Property(property="password", type="string", example="12345678"),
+     *         ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
     public function store(Request $request)
     {
@@ -58,6 +99,49 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Put(
+     *      path="/api/user/3",
+     *      operationId="editUser",
+     *      tags={"Users"},
+     *      summary="Editar user",
+     *      description="Returns user data",
+     *      security={ {"apiAuth": {} }},
+     *      @OA\RequestBody(
+     *         required=true,
+     *         description="Ponga sus credenciales",
+     *         @OA\JsonContent(
+     *              required={"name", "surname", "address"},
+     *              @OA\Property(property="name", type="string", example="Victor"),
+     *              @OA\Property(property="surname", type="string", example="Monzo Mora"),
+     *              @OA\Property(property="address", type="string", example="C/ Correos"),
+     *         ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *           @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="error",
+     *                  type="string",
+     *                  example="Usuario no autenticado"))
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
     public function update(Request $request, User $user)
     {

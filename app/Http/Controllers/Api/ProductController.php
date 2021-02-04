@@ -20,10 +20,29 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * @OA\Get(
+     *      path="/api/product",
+     *      operationId="getProducts",
+     *      tags={"Products"},
+     *      summary="Obtiener producto",
+     *      description="Obtener todos los productos activos y con stock",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/ProductResource")
+     *       ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function index()
     {
         $products = Product::where('active', '=', 1)->where('stock', '!=', 0)->orderBy('name', 'ASC')->get();
-        return response()->json(ProductResource::collection($products), 201);
+        return response()->json(ProductResource::collection($products), 200);
     }
 
     /**

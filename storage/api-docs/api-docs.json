@@ -1,0 +1,1039 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Sneak  ApplicationAPI",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/categorie": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Obtiener categorias",
+                "description": "Obtener todos las categorias",
+                "operationId": "getCategories",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Categorie"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/login-dealer": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login dealers",
+                "description": "Login con email y contraseña para los repartidores",
+                "operationId": "authLoginDealer",
+                "requestBody": {
+                    "description": "Ponga sus credenciales",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "login",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "login": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "info@sneak.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Credenciales incorrectas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login-customer": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login customers",
+                "description": "Login con email y contraseña para los clientes",
+                "operationId": "authLoginCustomer",
+                "requestBody": {
+                    "description": "Ponga sus credenciales",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "login",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "login": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "josejuan@alcoyano.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Credenciales incorrectas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order-dealer/1": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Obtiene orders del dealer para repartir",
+                "description": "Obtiene las ordenes a repartir de dealer",
+                "operationId": "getOrdersByIdDealer",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order-customer/1": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Obtiene orders del customer sin entregar",
+                "description": "Obtiene las ordenes del customer que no se han repartido todavía",
+                "operationId": "getOrdersByIdCustomer",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order-customer-all/1": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Obtiene totas las orders del customer",
+                "description": "Obtiene todas las ordenes del customer",
+                "operationId": "getAllOrdersByIdCustomer",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Crear nueva orden",
+                "description": "Returns order data",
+                "operationId": "createdOrder",
+                "requestBody": {
+                    "description": "Ponga sus credenciales",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "address",
+                                    "user_id",
+                                    "quantity",
+                                    "price",
+                                    "product_id"
+                                ],
+                                "properties": {
+                                    "address": {
+                                        "type": "string",
+                                        "example": "C/ Correos"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": "15"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": "99"
+                                    },
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Order"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Usuario no autenticado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order/1": {
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Editar orden",
+                "description": "Returns order data",
+                "operationId": "updateOrder",
+                "requestBody": {
+                    "description": "Ponga sus credenciales",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "state_id"
+                                ],
+                                "properties": {
+                                    "state_id": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Order"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Usuario no autenticado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order-line/1": {
+            "put": {
+                "tags": [
+                    "OrderLines"
+                ],
+                "summary": "Editar orden-line",
+                "description": "Returns order data",
+                "operationId": "updateOrderLine",
+                "requestBody": {
+                    "description": "Ponga sus credenciales",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": "10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderLine"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Usuario no autenticado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/product": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Obtiener producto",
+                "description": "Obtener todos los productos activos y con stock",
+                "operationId": "getProducts",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/provider": {
+            "get": {
+                "tags": [
+                    "Providers"
+                ],
+                "summary": "Obtiener proveedores",
+                "description": "Obtener todos los proveedores",
+                "operationId": "getProviders",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Provider"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/state": {
+            "get": {
+                "tags": [
+                    "States"
+                ],
+                "summary": "Obtiener estados",
+                "description": "Obtener todos los estados",
+                "operationId": "getStates",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/State"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Crear nuevo user",
+                "description": "Returns user data",
+                "operationId": "createdUser",
+                "requestBody": {
+                    "description": "Datos para crear usuario",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "email",
+                                    "address",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Victor"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Monzo Mora"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "victor.monzo.mora2@gmail.com"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "C/ Correos"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/user/3": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Editar user",
+                "description": "Returns user data",
+                "operationId": "editUser",
+                "requestBody": {
+                    "description": "Ponga sus credenciales",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Victor"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Monzo Mora"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "C/ Correos"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Usuario no autenticado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "OrderResource": {
+                "title": "OrderResource",
+                "description": "Order resource",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "description": "Datos a devolver de la tabla orders",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Order"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "OrderResource"
+                }
+            },
+            "ProductResource": {
+                "title": "ProductResource",
+                "description": "Product resource",
+                "xml": {
+                    "name": "ProductResource"
+                }
+            },
+            "UserResource": {
+                "title": "UserResource",
+                "description": "User resource",
+                "xml": {
+                    "name": "UserResource"
+                }
+            },
+            "Categorie": {
+                "required": [
+                    "id, name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Zapatillas"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Categorie"
+                }
+            },
+            "Order": {
+                "required": [
+                    "id, state_id, state, address, created_at, updated_at, userName, productName, OrderLine"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "state_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "state": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "En espera"
+                    },
+                    "address": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "C/ Correos"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "11/11/11"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "12/12/12"
+                    },
+                    "userName": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Víctor"
+                    },
+                    "productName": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Zapatillas Nike"
+                    },
+                    "OrderLine": {
+                        "type": "object",
+                        "readOnly": "true",
+                        "example": "{ 'id':1, 'quantity':10, 'price':80, 'discount':0, 'order_id':1, 'user_id':1, 'product_id':7 }"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Order"
+                }
+            },
+            "OrderLine": {
+                "required": [
+                    "id, quantity, price, discount, order_id, user_id, product_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "10"
+                    },
+                    "discount": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "0"
+                    },
+                    "order_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "product_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "OrderLine"
+                }
+            },
+            "Product": {
+                "required": [
+                    "id, name",
+                    "description",
+                    "price",
+                    "stock",
+                    "photo",
+                    "created_at",
+                    "updated_at",
+                    "provider_id",
+                    "nameProvider",
+                    "categorie_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Nike Air Force 1"
+                    },
+                    "description": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Las clásicas Air Force 1, ahora con un toque diferente. Estas zapatillas AF1..."
+                    },
+                    "price": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "110"
+                    },
+                    "stock": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "200"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "/imgs/products-users/DB/DB-prodNike1.jpg"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "17/01/2021"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "17/01/2021"
+                    },
+                    "nameProvider": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Nike"
+                    },
+                    "categorie_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Product"
+                }
+            },
+            "Provider": {
+                "required": [
+                    "id, name, email"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Nike"
+                    },
+                    "email": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "info@nike.com"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "State"
+                }
+            },
+            "State": {
+                "required": [
+                    "id, name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "En espera"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "State"
+                }
+            },
+            "User": {
+                "required": [
+                    "token, id, name, surname, email, address, created_at, photo"
+                ],
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "12 |afafafdeavafafr"
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Victor"
+                    },
+                    "surname": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Monzo Mora"
+                    },
+                    "email": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "victor.monzo.mora@gmail.com"
+                    },
+                    "address": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "C/ Correos"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "11/11/11"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "/imgs/products-users/DB/U-victor.jpg"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token based Based",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

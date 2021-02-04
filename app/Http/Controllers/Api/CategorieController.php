@@ -13,6 +13,25 @@ class CategorieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * @OA\Get(
+     *      path="/api/categorie",
+     *      operationId="getCategories",
+     *      tags={"Categories"},
+     *      summary="Obtiener categorias",
+     *      description="Obtener todos las categorias",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Categorie")
+     *       ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function index()
     {
         $categories = Categorie::all();

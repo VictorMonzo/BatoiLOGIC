@@ -28,20 +28,90 @@ class OrderController extends Controller
         //return response()->json(OrderResource::collection($orders), 201);
     }
 
+
+    /**
+     * @OA\Get(
+     *      path="/api/order-dealer/1",
+     *      operationId="getOrdersByIdDealer",
+     *      tags={"Orders"},
+     *      summary="Obtiene orders del dealer para repartir",
+     *      description="Obtiene las ordenes a repartir de dealer",
+     *      security={ {"apiAuth": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/OrderResource")
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function indexbyIdDealer($id) {
         $orders = Order::where('dealer_id', '=', $id)->where('state', '!=', 3)->get();
         //return response()->json(OrderResource::collection($orders), 201);
-        return response()->json(OrderResource::collection($orders), 201);
+        return response()->json(OrderResource::collection($orders), 200);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/order-customer/1",
+     *      operationId="getOrdersByIdCustomer",
+     *      tags={"Orders"},
+     *      summary="Obtiene orders del customer sin entregar",
+     *      description="Obtiene las ordenes del customer que no se han repartido todavía",
+     *      security={ {"apiAuth": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/OrderResource")
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function indexByIdCustomer($id) {
         $orders = Order::where('user_id', '=', $id)->where('state', '!=', 3)->get();
-        return response()->json(OrderResource::collection($orders), 201);
+        return response()->json(OrderResource::collection($orders), 200);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/order-customer-all/1",
+     *      operationId="getAllOrdersByIdCustomer",
+     *      tags={"Orders"},
+     *      summary="Obtiene totas las orders del customer",
+     *      description="Obtiene todas las ordenes del customer",
+     *      security={ {"apiAuth": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/OrderResource")
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function indexByIdCustomerAll($id) {
         $orders = Order::where('user_id', '=', $id)->get();
-        return response()->json(OrderResource::collection($orders), 201);
+        return response()->json(OrderResource::collection($orders), 200);
     }
 
     /**
@@ -49,6 +119,51 @@ class OrderController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Post(
+     *      path="/api/order",
+     *      operationId="createdOrder",
+     *      tags={"Orders"},
+     *      summary="Crear nueva orden",
+     *      description="Returns order data",
+     *      security={ {"apiAuth": {} }},
+     *      @OA\RequestBody(
+     *         required=true,
+     *         description="Ponga sus credenciales",
+     *         @OA\JsonContent(
+     *              required={"address", "user_id", "quantity", "price", "product_id"},
+     *              @OA\Property(property="address", type="string", example="C/ Correos"),
+     *              @OA\Property(property="user_id", type="integer", example="1"),
+     *              @OA\Property(property="quantity", type="integer", example="15"),
+     *              @OA\Property(property="price", type="integer", example="99"),
+     *              @OA\Property(property="product_id", type="integer", example="5"),
+     *         ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Order")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *           @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="error",
+     *                  type="string",
+     *                  example="Usuario no autenticado"))
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
     public function store(Request $request)
     {
@@ -89,12 +204,52 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * @OA\Put(
+     *      path="/api/order/1",
+     *      operationId="updateOrder",
+     *      tags={"Orders"},
+     *      summary="Editar orden",
+     *      description="Returns order data",
+     *      security={ {"apiAuth": {} }},
+     *      @OA\RequestBody(
+     *         required=true,
+     *         description="Ponga sus credenciales",
+     *         @OA\JsonContent(
+     *              required={"state_id"},
+     *              @OA\Property(property="state_id", type="integer", example="2"),
+     *         ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Order")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *           @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="error",
+     *                  type="string",
+     *                  example="Usuario no autenticado"))
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
     public function update(Request $request, Order $order)
     {
         $order->state = $request->state_id;
         $order->save();
         return response()->json(OrderUpdateResource::make($order), 201);
-        //return response()->json($order,201);
     }
 
     /**

@@ -21,6 +21,7 @@ Route::apiResource('product', App\Http\Controllers\Api\ProductController::class)
 Route::apiResource('order-line', App\Http\Controllers\Api\OrderLineController::class);
 Route::apiResource('user', App\Http\Controllers\Api\UserController::class);
 Route::apiResource('categorie', App\Http\Controllers\Api\CategorieController::class);
+Route::apiResource('provider', App\Http\Controllers\Api\ProviderController::class);
 
 Route::get('/order-dealer/{id}', [App\Http\Controllers\Api\OrderController::class, 'indexbyIdDealer'])->name('indexbyIdDealer');
 Route::get('/order-customer/{id}', [App\Http\Controllers\Api\OrderController::class, 'indexByIdCustomer'])->name('indexByIdCustomer');

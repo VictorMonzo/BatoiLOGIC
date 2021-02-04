@@ -7,6 +7,13 @@ use App\Models\Product;
 use App\Models\State;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @OA\Schema(
+ *     title="OrderResource",
+ *     description="Order resource",
+ *     @OA\Xml(name="OrderResource"),
+ * )
+ */
 class OrderResource extends JsonResource
 {
     /**
@@ -14,6 +21,16 @@ class OrderResource extends JsonResource
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
+     */
+
+    /**
+     * @OA\Property(
+     *     property="data",
+     *     title="data",
+     *     description="Datos a devolver de la tabla orders"
+     * )
+     *
+     * @var \App\Models\Order[]
      */
     public function toArray($request)
     {

@@ -5,6 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ * @OA\Schema(
+ * required={"id, quantity, price, discount, order_id, user_id, product_id"},
+ * @OA\Xml(name="OrderLine"),
+ * @OA\Property(property="id", type="integer", readOnly="true", example="1"),
+ * @OA\Property(property="quantity", type="integer", readOnly="true", example="10"),
+ * @OA\Property(property="discount", type="integer", readOnly="true", example="0"),
+ * @OA\Property(property="order_id", type="integer", readOnly="true", example="1"),
+ * @OA\Property(property="user_id", type="integer", readOnly="true", example="1"),
+ * @OA\Property(property="product_id", type="integer", readOnly="true", example="1"),
+ * )
+ *
+ * Class State
+ *
+ */
+
 class OrderLine extends Model
 {
     use HasFactory;

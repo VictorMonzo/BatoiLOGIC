@@ -4,6 +4,13 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @OA\Schema(
+ *     title="ProductResource",
+ *     description="Product resource",
+ *     @OA\Xml(name="ProductResource"),
+ * )
+ */
 class ProductResource extends JsonResource
 {
     /**
@@ -24,7 +31,8 @@ class ProductResource extends JsonResource
             'created_at' => date("d/m/Y", strtotime($this->created_at)),
             'updated_at' => date("d/m/Y", strtotime($this->updated_at)),
             'provider_id' => $this->provider_id,
-            'nameProvider' => $this->providers->name
+            'nameProvider' => $this->providers->name,
+            'categorie_id' => $this->categorie_id
         ];
     }
 }

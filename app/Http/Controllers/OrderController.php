@@ -73,11 +73,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $dealers = User::select('id')->where('type_user', '=', 2)->get();
+
         $order = new Order();
         $order->state = 1;
         $order->address = $request->get('address');
         $order->user_id = $request->get('user_id');
-        $order->dealer_id = 0;
+        $order->dealer_id = $dealers[random_int(0, count($dealers)-1)]->id;
         $order->save();
 
         $orderLine = new OrderLine();

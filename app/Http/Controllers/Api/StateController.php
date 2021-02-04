@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\State;
 use Illuminate\Http\Request;
 
+
 class StateController extends Controller
 {
     /**
@@ -13,10 +14,29 @@ class StateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * @OA\Get(
+     *      path="/api/state",
+     *      operationId="getStates",
+     *      tags={"States"},
+     *      summary="Obtiener estados",
+     *      description="Obtener todos los estados",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/State")
+     *       ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function index()
     {
         $states = State::all();
-        return response()->json($states, 201);
+        return response()->json($states, 200);
     }
 
     /**
