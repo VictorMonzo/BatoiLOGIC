@@ -4,26 +4,49 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand d-none d-lg-block" href="{{ route('home') }}">
-                <img src="{{ asset('/imgs/logo-sneak.png') }}" alt="SNEAK" height="50px">
+            <a class="navbar-brand d-none d-lg-block py-3" href="{{ route('home') }}">
+                <img src="{{ asset('/imgs/logo.svg') }}" alt="SNEAK" height="35px">
             </a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('order.index') }}">Comandas</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Productos
+                    </a>
+                    <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                        @forelse($categories as $categorie)
+                            <a class="dropdown-item text-light" href="{{ route('indexByCategorie', $categorie->id) }}">{{ $categorie->name }}</a>
+                        @empty
+                            <a class="dropdown-item text-light" href="#">No hay categorías</a>
+                        @endforelse
+                        <a class="dropdown-item text-light" href="{{ route('product.index') }}">Ver todos <span class="menu-badge badge-bounce">NEW</span></a>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('user.index') }}">Usuarios</a>
+                    <a class="nav-link" href="{{ route('about') }}">Nosotros</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('provider.index') }}">Proveedores</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('product.index') }}">Productos</a>
-                </li>
+
+                @if(Auth::check())
+                    <li class="custom-divider" style="height: auto; background: #3a3a3a; width: 1px; margin: 0 1rem"></li>
+                    <li class="divider"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('order.index') }}">Comandas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.index') }}">Usuarios</a>
+                    </li>
+                    @if(auth()->user()->type_user === 3)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('importDataView') }}">Importar datos</a>
+                        </li>
+                    @endif
+                @endif
             </ul>
 
             @if(Auth::check())
-                <a href="{{ route('user.show', Auth::user()->id) }}">{{ Auth::user()->name}}</a>
+                <a href="{{ route('user.show', Auth::user()->id) }}" class="text-light">{{ Auth::user()->name}}</a>
                 <a href="{{ route('user.show', Auth::user()->id) }}"><img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://via.placeholder.com/300' }}" class="rounded-circle mx-4" height="30" width="30" style="object-fit: cover"></a>
             @endif
 
@@ -39,7 +62,13 @@
             </form-->
         </div>
         <a class="navbar-brand d-lg-none d-block logo-ph" href="{{ route('home') }}">
-            <img src="{{ asset('/imgs/logo-sneak.png') }}" alt="BatoiLogic logo" height="50px">
+            <img src="{{ asset('/imgs/logo.svg') }}" alt="BatoiLogic logo" height="30px">
         </a>
     </nav>
 </header>
+
+
+
+<style>
+
+</style>

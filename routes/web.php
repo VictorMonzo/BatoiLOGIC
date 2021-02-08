@@ -30,16 +30,21 @@ Route::resource('product', ProductController::class);
 Route::get('/order-no-dealer', [App\Http\Controllers\OrderController::class, 'noDealer'])->name('noDealer');
 Route::get('/order/{id}/create', [App\Http\Controllers\OrderController::class, 'createIdProduct'])->name('createIdProduct');
 
-//Ruta home
-Route::get('/', function () { return view('home'); });
+Route::get('/product/categorie/{id}', [App\Http\Controllers\ProductController::class, 'indexByCategorie'])->name('indexByCategorie');
+Route::post('/import-data', [App\Http\Controllers\ProductController::class, 'importData'])->name('importData');
+Route::get('/import-data', function () { return view('product.importData'); })->name('importDataView');
 
-//Ruta para guardar imágenes
-//Route::get('formulario', 'StorageController@index');
-//Route::post('storage/create', 'StorageController@save');
+// Ruta home
+Route::get('/', [App\Http\Controllers\ProductController::class, 'productsHome'])->name('home');
+
+// Ruta about
+Route::get('/about', function () { return view('about'); })->name('about');
+
+// Ruta PDF
+Route::get('order/{id}/pdf', [App\Http\Controllers\OrderController::class, 'pdf'])->name('pdf-generate');
 
 /**
  * Rutas Autenticación
  */
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('exit');

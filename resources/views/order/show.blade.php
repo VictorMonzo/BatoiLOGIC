@@ -5,7 +5,7 @@
 <div class="page-users">
     <div class="container my-5">
         <div class="row pt-5">
-            <h1><i class="fas fa-boxes"></i> Pedido de <b> {{ $order[0]->users->name }} {{ $order[0]->users->surname }}</b></h1>
+            <h2><i class="fas fa-boxes"></i> Pedido de <b> {{ $order[0]->users->name }} {{ $order[0]->users->surname }}</b></h2>
         </div>
 
         <div class="row py-4">
@@ -14,14 +14,14 @@
 
 
         <div class="row py-4">
-            <div class="col-12 mb-5">
+            <div class="col-12 mb-5 p-0">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Estado: {{ $order[0]->states->name }}</h5>
-                        <p class="card-text m-0">{{ $order[0]->users->email }}</p>
-                        <p class="card-text m-0 mb-3">{{ $order[0]->address }}</p>
+                        <h5 class="card-title">Estado: <b class="text-success">{{ $order[0]->states->name }}</b></h5>
+                        <p class="card-text m-0"><i class="fas fa-envelope"></i> {{ $order[0]->users->email }}</p>
+                        <p class="card-text m-0 mb-3"><i class="fas fa-map-marker-alt"></i> {{ $order[0]->address }}</p>
                         @if($order[0]->dealer_id)
-                            <p>Repartidor: <a href="{{ route('user.show', $order[0]->dealer_id) }}">{{ $order[0]->dealers->name }}</a></p>
+                            <p>Repartidor: <a href="#" class="text-primary">{{ $order[0]->dealers->name }}</a></p>
                         @endif
 
                         @if(Auth::check() && (auth()->user()->type_user === 3 || auth()->user()->type_user === 2))

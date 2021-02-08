@@ -2,8 +2,13 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -33,8 +38,20 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (Throwable $exception) {
+            if (request()->is('api*'))
+            {
+                if ($exception instanceof ModelNotFoundException)
+                    return response()->json(['error' => 'Recurso no encontrado'],404);
+                elseif ($exception instanceof AuthenticationException)
+                    return response()->json(['error' => 'Usuario no autenticado'], 401); //aqui
+                else if ($exception instanceof ValidationException)
+                    return response()->json(['error' => 'Datos no válidos: '.$exception->getMessage()],400);
+                else if ($exception instanceof QueryException)
+                    return response()->json(['error'=> 'SQL no válido: '.$exception->getMessage()], 400); //aqui
+                else if (isset($exception))
+                    return response()->json(['error' => 'Error: ' .$exception->getMessage()], 500);
+            }
         });
     }
 }

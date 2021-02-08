@@ -17,13 +17,13 @@
                     @method('PUT')
                     @csrf
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-12 col-md-4">
                             <div class="form-group">
                                 <label for="name">Nombre: </label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $user[0]->name }}" required>
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12 col-md-8">
                             <div class="form-group">
                                 <label for="surname">Apellidos: </label>
                                 <input type="text" class="form-control" id="surname" name="surname" value="{{ $user[0]->surname }}" required>
@@ -31,13 +31,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="email">Email: </label>
                                 <input type="email" class="form-control" id="email" name="email" value="{{ $user[0]->email }}" required>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="password">Cambiar contraseña: </label>
                                 <input type="password" class="form-control" id="password" name="password" required>
@@ -74,7 +74,7 @@
                     @else
                         <input id="type_user" name="type_user" type="hidden" value="{{ $user[0]->type_user }}">
                     @endif
-                    <button type="submit" class="btn btn-primary">Actualizar usuario</button>
+                    <button type="submit" class="btn btn-primary mt-4">Actualizar usuario</button>
                 </form>
             </div>
         </div>

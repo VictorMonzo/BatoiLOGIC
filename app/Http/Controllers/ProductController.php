@@ -2,21 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use function GuzzleHttp\json_decode;
 
 class ProductController extends Controller
 {
     public function __construct()
     {
         // Customer
-        $this->middleware(['auth', 'typeUser:2'], ['except' => ['index', 'show']]);
+        $this->middleware(['auth', 'typeUser:2'], ['except' => ['index', 'show', 'indexByCategorie', 'productsHome']]);
 
         // Dealer
-        $this->middleware(['auth', 'typeUser:1'], ['except' => ['index', 'show']]);
+        $this->middleware(['auth', 'typeUser:1'], ['except' => ['index', 'show', 'indexByCategorie', 'productsHome']]);
+    }
+
+    public function importData(Request $request) {
+        $datosJS = file_get_contents($request->file('importData'));
+
+        $datosJS = json_decode($datosJS, true);
+
+        foreach ($datosJS['products'] as $dato) {
+            $product = Product::find($dato['id']);
+            $product->stock += $dato['stock'];
+            $product->save();
+        }
+
+        $correctImport = true;
+        return view('product.importData', compact('correctImport'));
     }
 
     /**
@@ -26,8 +43,19 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('active', '=', 1)->where('stock', '!=', 0)->orderBy('name', 'ASC')->paginate(6);;
+        $products = Product::where('active', '=', 1)->where('stock', '!=', 0)->orderBy('name', 'ASC')->paginate(6);
         return view('product.index', compact('products'));
+    }
+
+    public function indexByCategorie($id) {
+        $products = Product::where('categorie_id', '=', $id)->orderBy('name', 'ASC')->paginate(6);
+        $nameCategorie = Categorie::select('name')->where('id', '=', $id)->first();
+        return view('product.index', compact('products', 'nameCategorie'));
+    }
+
+    public function productsHome() {
+        $products = \App\Models\Product::paginate(6);
+        return view('home', compact('products'));
     }
 
     /**
@@ -38,7 +66,8 @@ class ProductController extends Controller
     public function create()
     {
         $providers = Provider::all();
-        return view('product/create', compact('providers'));
+        $categories = Categorie::all();
+        return view('product/create', compact('providers', 'categories'));
     }
 
     /**
@@ -62,6 +91,8 @@ class ProductController extends Controller
         $product->active = $request->get('active') ? 1 : 0;
         $product->photo = '/imgs/products-users/'.$nombre;
         $product->provider_id = $request->get('provider_id');
+        $product->categorie_id = $request->get('categorie_id');
+        $product->discount = $request->get('discount');
         $product->save();
 
         return redirect()->route('product.index');
@@ -77,7 +108,8 @@ class ProductController extends Controller
     {
         $product = Product::where('id', '=', $id)->get();
         $orderLines = OrderLine::where('product_id', '=', $id)->paginate(6);
-        return view('product.show', compact('product', 'orderLines'));
+        $productsRela = Product::where('categorie_id', '=', $product[0]->categorie_id)->paginate(3);
+        return view('product.show', compact('product', 'orderLines', 'productsRela'));
     }
 
     /**
@@ -90,7 +122,8 @@ class ProductController extends Controller
     {
         $product = Product::where('id', $id)->get();
         $providers = Provider::all();
-        return view('product/edit', compact('product', 'providers'));
+        $categories = Categorie::all();
+        return view('product/edit', compact('product', 'providers', 'categories'));
     }
 
     /**
@@ -124,6 +157,8 @@ class ProductController extends Controller
         $product->stock = $request->get('stock');
         $product->active = $request->get('active') ? 1 : 0;
         $product->provider_id = $request->get('provider_id');
+        $product->categorie_id = $request->get('categorie_id');
+        $product->discount = $request->get('discount');
         $product->save();
         return redirect()->route('product.show', $id);
     }

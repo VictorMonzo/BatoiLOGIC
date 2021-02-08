@@ -17,7 +17,7 @@
                 <div class="col-12 col-lg-4 bg-white mb-3 rounded box-shadow d-flex flex-column justify-content-center">
                     <span class="mr-3 text-center">
                         <img src="{{ $user[0]->photo ? asset($user[0]->photo) : 'https://via.placeholder.com/300' }}" alt="Product image" width="300" height="300" style="object-fit: cover">
-                        <h1 class="mt-4 pb-3"><b>{{ $user[0]->name }}</b> {{ $user[0]->surname }}</h1>
+                        <h2 class="mt-4 pb-3"><b>{{ $user[0]->name }}</b> {{ $user[0]->surname }}</h2>
                     </span>
                 </div>
 
@@ -43,16 +43,16 @@
             </div>
 
             <div class="row pt-5">
-                <h2>{{ $user[0]->type_user === 2 ? 'Listado de comandas repartidas' : 'Lista de comandas'}}</h2>
+                <h2>{{ $user[0]->type_user === 2 ? 'Listado de comandas repartidas' : 'Historial de comandas'}}</h2>
             </div>
             <div class="row">
                 @forelse($orders as $order)
-                    <div class="p-3 mb-5 bg-white rounded box-shadow w-100">
+                    <div class="p-4 mb-3 bg-white rounded box-shadow w-100">
                         <div class="media text-muted">
                             <div class="media-body mb-0">
                                 <div class="d-flex justify-content-between align-items-center w-100">
-                                    <a href="#"><strong class="text-gray-dark">Estado: {{ $order->states->name }}</strong></a>
-                                    <a href="{{ route('order.show', $order->id) }}">Ver comanda</a>
+                                    <a href="{{ route('order.show', $order->id) }}"><strong class="text-success">Estado: {{ $order->states->name }}</strong></a>
+                                    <a href="{{ route('order.show', $order->id) }}" class="text-primary">Ver comanda</a>
                                 </div>
                                 <span class="d-block">Dirección: {{ $order->address }}</span>
                             </div>
