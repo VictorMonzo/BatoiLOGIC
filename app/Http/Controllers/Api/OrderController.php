@@ -197,6 +197,8 @@ class OrderController extends Controller
         //return response()->json(OrderResource::collection($order), 200);
     }
 
+
+
     /**
      * Update the specified resource in storage.
      *

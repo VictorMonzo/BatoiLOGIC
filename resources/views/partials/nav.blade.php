@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('provider.index') }}">Proveedores</a>
-                </li>                
+                </li>
 
                 @if(Auth::check())
                     <li class="custom-divider" style="height: auto; background: #3a3a3a; width: 1px; margin: 0 1rem"></li>
@@ -37,6 +37,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.index') }}">Usuarios</a>
                     </li>
+                    @if(auth()->user()->type_user === 3)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('importDataView') }}">Importar datos</a>
+                        </li>
+                    @endif
                 @endif
             </ul>
 
@@ -65,5 +70,5 @@
 
 
 <style>
-    
+
 </style>

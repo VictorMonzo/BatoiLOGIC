@@ -8,6 +8,7 @@ use App\Models\OrderLine;
 use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use function GuzzleHttp\json_decode;
 
 class ProductController extends Controller
 {
@@ -18,6 +19,21 @@ class ProductController extends Controller
 
         // Dealer
         $this->middleware(['auth', 'typeUser:1'], ['except' => ['index', 'show', 'indexByCategorie', 'productsHome']]);
+    }
+
+    public function importData(Request $request) {
+        $datosJS = file_get_contents($request->file('importData'));
+
+        $datosJS = json_decode($datosJS, true);
+
+        foreach ($datosJS['products'] as $dato) {
+            $product = Product::find($dato['id']);
+            $product->stock += $dato['stock'];
+            $product->save();
+        }
+
+        $correctImport = true;
+        return view('product.importData', compact('correctImport'));
     }
 
     /**

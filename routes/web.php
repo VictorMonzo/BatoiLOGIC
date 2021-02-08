@@ -31,12 +31,17 @@ Route::get('/order-no-dealer', [App\Http\Controllers\OrderController::class, 'no
 Route::get('/order/{id}/create', [App\Http\Controllers\OrderController::class, 'createIdProduct'])->name('createIdProduct');
 
 Route::get('/product/categorie/{id}', [App\Http\Controllers\ProductController::class, 'indexByCategorie'])->name('indexByCategorie');
+Route::post('/import-data', [App\Http\Controllers\ProductController::class, 'importData'])->name('importData');
+Route::get('/import-data', function () { return view('product.importData'); })->name('importDataView');
 
 // Ruta home
 Route::get('/', [App\Http\Controllers\ProductController::class, 'productsHome'])->name('home');
 
 // Ruta about
 Route::get('/about', function () { return view('about'); })->name('about');
+
+// Ruta PDF
+Route::get('order/{id}/pdf', [App\Http\Controllers\OrderController::class, 'pdf'])->name('pdf-generate');
 
 /**
  * Rutas Autenticación

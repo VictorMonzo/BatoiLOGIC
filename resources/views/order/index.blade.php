@@ -20,6 +20,10 @@
                         <a class="btn btn-secondary ml-auto" href="{{ route('noDealer') }}">Ver comandas sin repartidor</a>
                     @endif
                 @endif
+
+                @if(auth()->user()->type_user === 2)
+                    <a class="btn btn-secondary ml-auto" href="{{ route('pdf-generate', auth()->user()->id) }}">Generar albarán (PDF)</a>
+                @endif
             </div>
 
             <div class="row">
