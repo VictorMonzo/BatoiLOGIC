@@ -48,7 +48,7 @@ class ProductController extends Controller
     }
 
     public function indexByCategorie($id) {
-        $products = Product::where('categorie_id', '=', $id)->orderBy('name', 'ASC')->paginate(6);
+        $products = Product::where('categorie_id', '=', $id)->where('active', '=', 1)->orderBy('name', 'ASC')->paginate(6);
         $nameCategorie = Categorie::select('name')->where('id', '=', $id)->first();
         return view('product.index', compact('products', 'nameCategorie'));
     }
