@@ -35,7 +35,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/user",
+     *      path="/api/user-api",
      *      operationId="createdUser",
      *      tags={"Users"},
      *      summary="Crear nuevo user",
@@ -103,7 +103,7 @@ class UserController extends Controller
 
     /**
      * @OA\Put(
-     *      path="/api/user/3",
+     *      path="/api/user-api/3",
      *      operationId="editUser",
      *      tags={"Users"},
      *      summary="Editar user",

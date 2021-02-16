@@ -123,7 +123,7 @@ class OrderController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/order",
+     *      path="/api/order-api",
      *      operationId="createdOrder",
      *      tags={"Orders"},
      *      summary="Crear nueva orden",
@@ -197,8 +197,6 @@ class OrderController extends Controller
         //return response()->json(OrderResource::collection($order), 200);
     }
 
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -209,7 +207,7 @@ class OrderController extends Controller
 
     /**
      * @OA\Put(
-     *      path="/api/order/1",
+     *      path="/api/order-api/1",
      *      operationId="updateOrder",
      *      tags={"Orders"},
      *      summary="Editar orden",
@@ -250,6 +248,11 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $order->state = $request->state_id;
+
+        /*$order->address = $request->address;
+        $order->user_id = $request->user_id;
+        $order->dealer_id = $request->dealer_id;*/
+
         $order->save();
         return response()->json(OrderUpdateResource::make($order), 201);
     }

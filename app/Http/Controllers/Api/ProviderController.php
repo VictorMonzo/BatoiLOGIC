@@ -16,7 +16,7 @@ class ProviderController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/provider",
+     *      path="/api/provider-api",
      *      operationId="getProviders",
      *      tags={"Providers"},
      *      summary="Obtiener proveedores",
