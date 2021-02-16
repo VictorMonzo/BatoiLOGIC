@@ -239,7 +239,7 @@
                 ]
             }
         },
-        "/api/order": {
+        "/api/order-api": {
             "post": {
                 "tags": [
                     "Orders"
@@ -328,7 +328,7 @@
                 ]
             }
         },
-        "/api/order/1": {
+        "/api/order-api/1": {
             "put": {
                 "tags": [
                     "Orders"
@@ -466,7 +466,7 @@
                 ]
             }
         },
-        "/api/product": {
+        "/api/product-api": {
             "get": {
                 "tags": [
                     "Products"
@@ -491,7 +491,7 @@
                 }
             }
         },
-        "/api/provider": {
+        "/api/provider-api": {
             "get": {
                 "tags": [
                     "Providers"
@@ -541,7 +541,7 @@
                 }
             }
         },
-        "/api/user": {
+        "/api/user-api": {
             "post": {
                 "tags": [
                     "Users"
@@ -609,7 +609,7 @@
                 }
             }
         },
-        "/api/user/3": {
+        "/api/user-api/3": {
             "put": {
                 "tags": [
                     "Users"

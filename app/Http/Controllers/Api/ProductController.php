@@ -23,7 +23,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/product",
+     *      path="/api/product-api",
      *      operationId="getProducts",
      *      tags={"Products"},
      *      summary="Obtiener producto",

@@ -14,14 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Ruta API
-Route::apiResource('order', App\Http\Controllers\Api\OrderController::class);
+// Ruta API - Modificadas
+
+// Esta
+Route::apiResource('order-api', App\Http\Controllers\Api\OrderController::class);
+
 Route::apiResource('state', App\Http\Controllers\Api\StateController::class);
-Route::apiResource('product', App\Http\Controllers\Api\ProductController::class);
+Route::apiResource('product-api', App\Http\Controllers\Api\ProductController::class);
 Route::apiResource('order-line', App\Http\Controllers\Api\OrderLineController::class);
-Route::apiResource('user', App\Http\Controllers\Api\UserController::class);
+
+// Esta
+Route::apiResource('user-api', App\Http\Controllers\Api\UserController::class);
+
 Route::apiResource('categorie', App\Http\Controllers\Api\CategorieController::class);
-Route::apiResource('provider', App\Http\Controllers\Api\ProviderController::class);
+Route::apiResource('provider-api', App\Http\Controllers\Api\ProviderController::class);
+
 
 Route::get('/order-dealer/{id}', [App\Http\Controllers\Api\OrderController::class, 'indexbyIdDealer'])->name('indexbyIdDealer');
 Route::get('/order-customer/{id}', [App\Http\Controllers\Api\OrderController::class, 'indexByIdCustomer'])->name('indexByIdCustomer');
