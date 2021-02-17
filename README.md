@@ -5,7 +5,7 @@ Aplicación web hecha principalmente para el administrador de esta con la cual u
 
 Además de todo eso, hemos añadido funcionalidades para que los clientes también puedan hacer sus pedidos desde esta web, poder gestionarlos y editar su perfil por completo.
 
-## Instalación del proyecto y desplegarlo
+## Instalación del proyecto y despliegue
 1. Hacer un git clone del repositorio
 2. Crear una nueva rama y programar en ella
 3. Subirla a master
