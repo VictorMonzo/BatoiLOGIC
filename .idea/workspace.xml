@@ -19,17 +19,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fedaa8f2-0213-456d-ba7e-1c5fbb44dffe" name="Default Changelist" comment="Falta revisar que todo funciona">
+    <list default="true" id="fedaa8f2-0213-456d-ba7e-1c5fbb44dffe" name="Default Changelist" comment="Prueba 1">
+      <change afterPath="$PROJECT_DIR$/deploy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imgs/despliegueWeb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imgs/puertosSeguridad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imgs/versionNginx.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imgs/versionPHP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imgs/versionSSH.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProviderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProviderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contenidoBD.sql" beforeDir="false" afterPath="$PROJECT_DIR$/contenidoBD.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_12_210553_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_12_210553_create_products_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +43,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="rama7" />
+        <entry key="$PROJECT_DIR$" value="rama8" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -294,7 +294,9 @@
       <workItem from="1613312833891" duration="682000" />
       <workItem from="1613381755229" duration="2333000" />
       <workItem from="1613399570264" duration="1111000" />
-      <workItem from="1613466698555" duration="4167000" />
+      <workItem from="1613466698555" duration="5664000" />
+      <workItem from="1613501980047" duration="815000" />
+      <workItem from="1613547185707" duration="2891000" />
     </task>
     <task id="LOCAL-00001" summary="muchas cosas he tocado">
       <created>1610548051124</created>
@@ -352,7 +354,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612810656552</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Prueba 1">
+      <created>1613472631508</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1613472631508</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,7 +388,8 @@
     <MESSAGE value="Trabajo finalizado, solo falta acabar y documentar la API." />
     <MESSAGE value="Api acabada y varios cambios más" />
     <MESSAGE value="Falta revisar que todo funciona" />
-    <option name="LAST_COMMIT_MESSAGE" value="Falta revisar que todo funciona" />
+    <MESSAGE value="Prueba 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prueba 1" />
   </component>
   <component name="WindowStateProjectService">
     <state x="514" y="178" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610483752450">
@@ -398,10 +408,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824/-1920.-147.1920.1040@0.0.1536.824" timestamp="1612803193062" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1612810668751">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1613472644181">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824/-1920.-147.1920.1040@0.0.1536.824" timestamp="1612810668751" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824/-1920.-147.1920.1040@0.0.1536.824" timestamp="1613472644181" />
     <state x="0" y="0" width="1193" height="711" key="dock-window-1" timestamp="1612282605753">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
