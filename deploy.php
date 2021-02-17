@@ -35,6 +35,10 @@ task('build', function () {
     run('cd {{release_path}} && build');
 });
 
+task('reload:php-fpm', function () {
+    run('sudo /etc/init.d/php7.4-fpm restart');
+});
+
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
@@ -44,4 +48,4 @@ before('deploy:symlink', 'artisan:migrate');
 
 //
 
-after('deploy', ' sudo service php7.4-fpm restart');
+after('deploy', 'reload:php-fpm');
