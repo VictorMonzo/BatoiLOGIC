@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderLine;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -167,11 +168,14 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $dealers = User::select('id')->where('type_user', '=', 2)->get();
+
         $order = new Order();
         $order->state = 1;
         $order->dealer_id = 0;
         $order->address = $request->address;
         $order->user_id = $request->user_id;
+        $order->dealer_id = $dealers[random_int(0, count($dealers)-1)]->id;
         $order->save();
 
         $orderLine = new OrderLine();
@@ -247,12 +251,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        $order = Order::find($request->id);
         $order->state = $request->state_id;
-
-        /*$order->address = $request->address;
-        $order->user_id = $request->user_id;
-        $order->dealer_id = $request->dealer_id;*/
-
         $order->save();
         return response()->json(OrderUpdateResource::make($order), 201);
     }
