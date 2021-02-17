@@ -9,7 +9,7 @@ Además de todo eso, hemos añadido funcionalidades para que los clientes tambi�
 1. Hacer un git clone del repositorio
 2. Crear una nueva rama y programar en ella
 3. Subirla a master
-4. Ejecutar comando dep deploy
+4. Ejecutar comando `` dep deploy ``
 
 ## Ip de la máquina y políticas de seguridad aplicadas (Puertos abiertos)
 ###### IP pública 
