@@ -14,7 +14,7 @@ Además de todo eso, hemos añadido funcionalidades para que los clientes tambi�
 5. Ejecutar comando `` php artisan migrate ``
 6. Crear una nueva rama y programar en ella
 ### Despliegue
-1. Subirla a master
+1. Subir la rama creada a master
 2. Ejecutar comando `` dep deploy ``
 
 ## Ip de la máquina y políticas de seguridad aplicadas (Puertos abiertos)
