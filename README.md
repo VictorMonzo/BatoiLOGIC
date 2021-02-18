@@ -12,10 +12,10 @@ Además de todo eso, hemos añadido funcionalidades para que los clientes tambi�
 3. Ejecutar comando `` composer update `` 
 4. Ejecutar comando `` php artisan key:generate ``
 5. Ejecutar comando `` php artisan migrate ``
+6. Crear una nueva rama y programar en ella
 ### Despliegue
-1. Crear una nueva rama y programar en ella
-2. Subirla a master
-3. Ejecutar comando `` dep deploy ``
+1. Subirla a master
+2. Ejecutar comando `` dep deploy ``
 
 ## Ip de la máquina y políticas de seguridad aplicadas (Puertos abiertos)
 ###### IP pública 
