@@ -6,10 +6,16 @@ Aplicación web hecha principalmente para el administrador de esta con la cual u
 Además de todo eso, hemos añadido funcionalidades para que los clientes también puedan hacer sus pedidos desde esta web, poder gestionarlos y editar su perfil por completo.
 
 ## Instalación del proyecto y despliegue
+# Instalación
 1. Hacer un git clone del repositorio
-2. Crear una nueva rama y programar en ella
-3. Subirla a master
-4. Ejecutar comando `` dep deploy ``
+2. Configurar archivo .env
+3. Ejecutar comando `` composer update `` 
+4. Ejecutar comando `` php artisan key:generate ``
+5. Ejecutar comando `` php artisan migrate ``
+# Despliegue
+1. Crear una nueva rama y programar en ella
+2. Subirla a master
+3. Ejecutar comando `` dep deploy ``
 
 ## Ip de la máquina y políticas de seguridad aplicadas (Puertos abiertos)
 ###### IP pública 
